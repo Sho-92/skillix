@@ -37,3 +37,11 @@ ul {
 nav li {
   margin: 10px 0;
 }
+
+@media (max-width: 600px) {
+
+  .video-section {
+    width: 100%; 
+    margin-bottom: 20px;
+  }
+}

@@ -50,3 +50,31 @@ main {
   margin-right: auto;
   padding: 5px 10px;
 }
+
+@media (max-width: 600px) {
+
+  #adminVideoList {
+    display: flex; 
+    flex-direction: column;            
+    justify-content: center;          
+    gap: 10px;      
+    overflow: hidden;          
+  }  
+
+  #adminVideoList li {
+    width: 100%;  
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: hidden;  
+    text-overflow: ellipsis;
+  }
+
+  .video-title,
+  .video-url {
+    width: 90%;  
+    word-wrap: break-word;  
+    white-space: normal;  
+    overflow-wrap: break-word;  
+  }
+
+}
