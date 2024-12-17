@@ -1,0 +1,21 @@
+.staff-video-list {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 20px 0;
+  background-color: #f9
+}
+
+#staffVideoList {
+  display: flex;             
+  flex-wrap: wrap;          
+  gap: 20px;                
+}
+
+#staffVideoList li {
+  width: calc(50% - 10px);   
+  box-sizing: border-box;    
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
