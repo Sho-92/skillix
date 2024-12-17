@@ -20,3 +20,23 @@
   border-radius: 5px;
 }
 
+@media (max-width: 600px) {
+
+  #staffVideoList {
+    display: flex; 
+    flex-direction: column;            
+    justify-content: center;          
+    gap: 10px;      
+    overflow: hidden;          
+  }  
+
+  #staffVideoList li {
+    width: 100%;  
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: hidden;  
+    text-overflow: ellipsis;
+  }
+
+
+}
