@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Skillixは社員教育用のEラーニングプラットフォームです。">
-  <title>Skillix - Admin Panel</title>
+  <meta name="description" content="Synclyeeは社員教育用のEラーニングプラットフォームです。">
+  <title>Synclyee (シンクリー) - Admin Panel</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
   <header>
-    <h1>Skillix - Eラーニングプラットフォーム</h1>
+    <h1>Synclyee - Eラーニングプラットフォーム</h1>
     <nav>
       <ul>
         <li><a href="index.html">本社</a></li>
         <li><a href="staff.html">スタッフ</a></li>
       </ul>
-    </nav>    
+    </nav>  
+    <form action="/search" method="get">
+      <input type="text" name="query" placeholder="検索..." />
+      <button type="submit">検索</button>
+    </form>  
+    <button class="logout">ログアウト</button>
   </header>
   <main>
     <h2>本社用：動画リンク入力セクション</h2>
