@@ -3,7 +3,7 @@ input, button {
   padding: 5px;
 }
 
-main {
+.main {
   display: flex;
   flex-direction: column;
 }

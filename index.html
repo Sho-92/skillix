@@ -6,10 +6,10 @@
   <meta name="description" content="Synclyeeは社員教育用のEラーニングプラットフォームです。">
   <title>Synclyee (シンクリー) - Admin Panel</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-  <header>
+  <header class="header">
     <h1>Synclyee - Eラーニングプラットフォーム</h1>
     <nav>
       <ul>
@@ -17,13 +17,9 @@
         <li><a href="staff.html">スタッフ</a></li>
       </ul>
     </nav>  
-    <form action="/search" method="get">
-      <input type="text" name="query" placeholder="検索..." />
-      <button type="submit">検索</button>
-    </form>  
     <button class="logout">ログアウト</button>
   </header>
-  <main>
+  <main class="main">
     <h2>本社用：動画リンク入力セクション</h2>
     <section class="input-video">
       <input type="text" id="videoTitle" class="video-title" placeholder="タイトルを入力">
@@ -35,7 +31,9 @@
       <ul id="adminVideoList"></ul>  
     </section>
   </main>
-  <footer></footer>
-  <script src="js/admin.js"></script>
+  <footer class="footer">
+    <p>&copy; 2024 Synclyee. All Rights Reserved. | Version 1.0.0</p>
+  </footer>  
+  <script src="js/index.js"></script>
 </body>
 </html>

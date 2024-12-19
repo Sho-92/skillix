@@ -11,8 +11,13 @@ body {
   color: #333; 
 }
 
-main { 
-  padding: 30px;
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  margin: 10px 0;
 }
 
 h1, h2, h3 {
@@ -23,18 +28,30 @@ iframe {
   margin: 10px 0;
 }
 
+.header {
+  padding: 20px;
+}
+
+.main { 
+  padding: 30px;
+}
+
+.footer {
+  background-color: #f8f9fa; 
+  text-align: center;       
+  padding: 10px 20px;       
+  font-size: 14px;          
+  color: #6c757d;           
+  border-top: 1px solid #e9ecef;
+}
+
+.footer p {
+  margin: 5px 0; 
+}
+
 .video-section {
   border: 1px solid #ddd;
   padding: 10px;
-  margin: 10px 0;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-nav li {
   margin: 10px 0;
 }
 
@@ -43,5 +60,9 @@ nav li {
   .video-section {
     width: 100%; 
     margin-bottom: 20px;
+  }
+
+  .footer {
+    font-size: 12px; 
   }
 }

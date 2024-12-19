@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/staff.css">
 </head>
 <body>
-  <header>
+  <header class="header">
     <h1>Synclyee - Eラーニングプラットフォーム</h1>
     <nav>
       <ul>
@@ -17,23 +17,17 @@
         <li><a href="staff.html">スタッフ</a></li>
       </ul>
     </nav> 
-    <form action="/search" method="get">
-      <input type="text" name="query" placeholder="検索..." />
-      <button type="submit">検索</button>
-    </form>  
     <button class="logout">ログアウト</button>   
   </header>
-  <main>
-    <section class="search-box">
-      <input type="text" id="searchBox" placeholder="検索..." onkeyup="search()">
-      <div id="results"></div>  
-    </section>
+  <main class="main">
     <section class="staff-video-list">
       <h2>スタッフ用：動画視聴セクション</h2>
       <ul id="staffVideoList"></ul>
     </section>
   </main>
-  <footer></footer>
+  <footer class="footer">
+    <p>&copy; 2024 Synclyee. All Rights Reserved. | Version 1.0.0</p>
+  </footer>  
   <script src="js/staff.js"></script>  
 </body>
 </html>
