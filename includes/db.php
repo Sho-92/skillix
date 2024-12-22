@@ -1,8 +1,8 @@
 <?php
-// 環境変数からJawsDBの接続URLを取得
+// 環境変数からJawsDBの接続URLを取得(Heroku)
 $cleardb_url = parse_url(getenv("JAWSDB_URL"));
 
-// DB接続設定
+// DB接続設定(Heroku)
 $host = $cleardb_url["host"];   // Herokuのホスト
 $db   = ltrim($cleardb_url["path"], '/');   // Herokuのデータベース名（URLのパス部分がデータベース名）
 $user = $cleardb_url["user"];   // Herokuのユーザー名
