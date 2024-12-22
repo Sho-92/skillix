@@ -34,6 +34,7 @@ iframe {
 
 .main { 
   padding: 30px;
+  height: 100vh;
 }
 
 .footer {
@@ -53,6 +54,21 @@ iframe {
   border: 1px solid #ddd;
   padding: 10px;
   margin: 10px 0;
+}
+
+/* モーダルのボタン（閉じるボタンなど） */
+button {
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  background-color:rgb(174, 213, 255);
+  color: #000;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
 
 @media (max-width: 600px) {

@@ -1,0 +1,117 @@
+input, button {
+  margin: 5px;
+  padding: 5px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.input-video {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-title {
+  width: 30vw;
+}
+
+.video-url {
+  width: 50vw;
+}
+
+.admin-video-list {
+  padding: 10px;
+  max-height: 50vh;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  width: 100%;
+  white-space: nowrap;
+  overflow-y: auto; /* スクロール可能にする */
+}
+
+#adminVideoList {
+  display: flex;
+  flex-direction: column; /* アイテムを縦並びに */
+  gap: 20px;
+}
+
+#adminVideoList li {
+  display: flex; /* 横並びにする */
+  flex-wrap: wrap; /* アイテムが折り返し可能 */
+  align-items: center; /* アイテムの縦の中央揃え */
+  justify-content: space-between; /* アイテム間のスペースを均等に */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+/* タイトル部分 */
+#adminVideoList li strong {
+  font-weight: bold;
+  margin-right: 10px;
+  flex-grow: 1; /* 残りのスペースを埋める */
+}
+
+/* URL（テキストボックス） */
+.video-url {
+  width: 200px;
+  padding: 5px;
+  font-size: 14px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex-shrink: 0; /* URLが縮まないように */
+}
+
+/* 削除ボタン */
+.delete-btn {
+  padding: 5px 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #e53935;
+}
+
+@media (max-width: 600px) {
+
+  #adminVideoList {
+    display: flex; 
+    flex-direction: column;            
+    justify-content: center;          
+    gap: 10px;      
+    overflow: hidden;          
+  }  
+
+  #adminVideoList li {
+    width: 100%;  
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: hidden;  
+    text-overflow: ellipsis;
+  }
+
+  .video-title,
+  .video-url {
+    width: 90%;  
+    word-wrap: break-word;  
+    white-space: normal;  
+    overflow-wrap: break-word;  
+  }
+
+}

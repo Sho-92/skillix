@@ -1,18 +1,23 @@
 .staff-video-list {
   padding: 10px;
+  max-height: 50vh;
+  overflow-x: auto; 
+  overflow-y: hidden;
+  padding: 1rem;
   border: 1px solid #ccc;
-  margin: 20px 0;
-  background-color: #f9
+  box-sizing: border-box;
+  width: 100%;
+  white-space: nowrap;
 }
 
 #staffVideoList {
   display: flex;             
-  flex-wrap: wrap;          
   gap: 20px;                
 }
 
 #staffVideoList li {
-  width: calc(50% - 10px);   
+  flex-shrink: 0; 
+  width: 400px;
   box-sizing: border-box;    
   padding: 10px;
   border: 1px solid #ccc;
