@@ -1,13 +1,18 @@
 <?php
 // 環境変数からJawsDBの接続URLを取得(Heroku)
-$cleardb_url = parse_url(getenv("JAWSDB_URL"));
+// $cleardb_url = parse_url(getenv("JAWSDB_URL"));
 
 // DB接続設定(Heroku)
-$host = $cleardb_url["host"];   // Herokuのホスト
-$db   = ltrim($cleardb_url["path"], '/');   // Herokuのデータベース名（URLのパス部分がデータベース名）
-$user = $cleardb_url["user"];   // Herokuのユーザー名
-$pass = $cleardb_url["pass"];   // Herokuのパスワード
-$charset = 'utf8mb4';   // 文字セット（UTF-8を使う）
+$host = 'jsftj8ez0cevjz8v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com';
+$dbname = 'cmbonb76trsevprv';
+$username = 'g3pyjo93tdeaupst';
+$password = 'v8kyg1rq71d9a0ws';
+$charset = 'utf8mb4';
+// $host = $cleardb_url["host"];   // Herokuのホスト
+// $db   = ltrim($cleardb_url["path"], '/');   // Herokuのデータベース名（URLのパス部分がデータベース名）
+// $user = $cleardb_url["user"];   // Herokuのユーザー名
+// $pass = $cleardb_url["pass"];   // Herokuのパスワード
+// $charset = 'utf8mb4';   // 文字セット（UTF-8を使う）
 
 // // DB接続設定(ローカルDB)
 // $host = 'localhost';    // MySQLのホスト名
