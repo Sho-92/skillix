@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4; 
+  color: #333; 
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  margin: 10px 0;
+}
+
+h1, h2, h3 {
+  color: #2c3e50;
+}
+
+iframe {
+  margin: 10px 0;
+}
+
+.header {
+  padding: 20px;
+}
+
+.main { 
+  padding: 30px;
+  height: 100vh;
+}
+
+.footer {
+  background-color: #f8f9fa; 
+  text-align: center;       
+  padding: 10px 20px;       
+  font-size: 14px;          
+  color: #6c757d;           
+  border-top: 1px solid #e9ecef;
+}
+
+.footer p {
+  margin: 5px 0; 
+}
+
+.video-section {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* モーダルのボタン（閉じるボタンなど） */
+button {
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  background-color:rgb(174, 213, 255);
+  color: #000;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+
+  .video-section {
+    width: 100%; 
+    margin-bottom: 20px;
+  }
+
+  .footer {
+    font-size: 12px; 
+  }
+}

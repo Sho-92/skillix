@@ -1,0 +1,47 @@
+.staff-video-list {
+  padding: 10px;
+  max-height: 50vh;
+  overflow-x: auto; 
+  overflow-y: hidden;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  width: 100%;
+  white-space: nowrap;
+}
+
+#staffVideoList {
+  display: flex;             
+  gap: 20px;                
+}
+
+#staffVideoList li {
+  flex-shrink: 0; 
+  width: 400px;
+  box-sizing: border-box;    
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+
+  #staffVideoList {
+    display: flex; 
+    flex-direction: column;            
+    justify-content: center;          
+    gap: 10px;      
+    overflow: hidden;          
+  }  
+
+  #staffVideoList li {
+    width: 100%;  
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: hidden;  
+    text-overflow: ellipsis;
+  }
+
+
+}

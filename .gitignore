@@ -1,0 +1,41 @@
+# Node.js dependencies (もし将来的にNode.jsを使用する場合)
+node_modules/
+
+# PHP Composer dependencies
+vendor/
+
+# 環境変数ファイル
+.env
+
+# OS/IDE関連の不要なファイル
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+logs/
+debug.log
+
+# Cache files
+cache/
+*.cache
+
+# IDE関連ファイル
+.vscode/
+.idea/
+*.iml
+
+# MySQL データベースダンプ（不要な場合）
+*.sql
+
+# バイナリファイル・生成ファイル
+*.zip
+*.tar
+*.gz
+*.bak
+*.tmp
+
+# その他プロジェクト外の設定
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

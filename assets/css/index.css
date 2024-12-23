@@ -1,0 +1,60 @@
+/* メインコンテナを画面中央に配置 */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7fc; /* 背景色 */
+}
+
+h1 {
+  font-size: 3rem;
+}
+/* ログインフォームのスタイル */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; /* 背景色 */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ボックスシャドウ */
+  width: 100%;
+  max-width: 400px; /* 最大幅 */
+}
+
+/* フォームのラベルとインプットの間隔 */
+.login-form label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333; /* ラベルの色 */
+}
+
+/* インプットフィールド */
+.login-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* ボタンのスタイル */
+.login-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff; /* ボタンの背景色 */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: #0056b3; /* ホバー時の背景色 */
+}
