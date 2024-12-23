@@ -1,5 +1,6 @@
 <?php
-// DB接続設定
+
+// // DB接続設定(ローカルDB)
 // $host = 'localhost';    // MySQLのホスト名
 // $db   = 'synclyee';        // データベース名
 // $user = 'root';         // MySQLのユーザー名（rootがデフォルト）

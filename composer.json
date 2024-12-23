@@ -1,0 +1,17 @@
+{
+  "name": "cbs/synclyee",
+  "description": "Synclyeeは社員教育用のEラーニングプラットフォームです。",
+  "require": {
+      "php": ">=7.4.3",  
+      "ext-mbstring": "*",  
+      "ext-curl": "*",      
+      "ext-json": "*"       
+  },
+  "config": {
+      "optimize-autoloader": true,
+      "preferred-install": "dist",
+      "platform": {
+          "php": "7.4.3"  
+      }
+  }
+}
