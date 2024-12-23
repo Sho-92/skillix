@@ -31,7 +31,7 @@ $users = $stmt->fetchAll();
     <input type="password" name="password" placeholder="Password" required>
     <input type="password" name="password_confirm" placeholder="Confirm Password" required>
     <select name="role">
-        <option value="admin">Head Office</option>
+        <option value="admin">admin</option>
         <option value="staff">Staff</option>
     </select>
     <button type="submit" name="add_user">Add User</button>
@@ -62,7 +62,11 @@ $users = $stmt->fetchAll();
         <input type="text" name="username" id="edit_username" placeholder="Username" required>
         <input type="text" name="employee_id" id="edit_employee_id" placeholder="Employee ID" required>
         <select name="role" id="edit_role">
+<<<<<<< HEAD
             <option value="admin">admin</option>
+=======
+            <option value="head_office">Head Office</option>
+>>>>>>> e9124e95980e996ff16afd641e403624f738df22
             <option value="staff">Staff</option>
         </select>
         <button type="submit" id="saveEditButton">Save Changes</button>
