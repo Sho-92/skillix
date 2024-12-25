@@ -97,7 +97,6 @@ input {
 // 仮 
 
 
-
 .admin-video-list {
   padding: 10px;
   max-height: 50vh;
@@ -106,6 +105,26 @@ input {
   width: 100%;
   white-space: nowrap;
   overflow-y: auto; /* スクロール可能にする */
+}
+
+.category-section {
+  border: 2px solid #ddd; 
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+}
+
+/* カテゴリータイトル */
+.category-section h3 {
+  background-color: #2a87d5; 
+  color: #fff;  
+  font-size: 1.4rem;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px; 
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 #adminVideoList {

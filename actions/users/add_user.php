@@ -3,7 +3,7 @@
 // フォームから送信されたデータを受け取り、パスワードのハッシュ化、
 // データベースへの挿入を行い、処理が成功すればダッシュボードページにリダイレクトします。
 
-require_once('../includes/db.php'); // データベース接続
+require_once('../../includes/db.php'); // データベース接続
 
 // ユーザー追加処理
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
     $stmt->bindParam(':role', $role);
 
     if ($stmt->execute()) {
-        header('Location: ../pages/dashboard.php'); // 成功したらダッシュボードにリダイレクト
+        header('Location: ../../pages/dashboard.php'); // 成功したらダッシュボードにリダイレクト
         exit;
     } else {
         echo "Error occurred!";

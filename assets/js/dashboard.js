@@ -18,7 +18,7 @@ function confirmDelete() {
 
 // 削除処理
 function deleteUserFromDatabase(userId) {
-  fetch('../actions/delete_user.php', {
+  fetch('../actions/users/delete_user.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -42,7 +42,7 @@ function deleteUserFromDatabase(userId) {
 
 // 編集ボタン
 function editUser(userId) {
-  fetch('../actions/get_user.php?user_id=' + userId)
+  fetch('../actions/users/get_user.php?user_id=' + userId)
     .then(response => response.json())
     .then(user => {
       if (user.error) {
@@ -69,7 +69,7 @@ document.getElementById('editUserForm').addEventListener('submit', function(even
   const formData = new FormData(this);
 
   // fetchで編集リクエストを送信
-  fetch('../actions/edit_user.php', {
+  fetch('../actions/users/edit_user.php', {
     method: 'POST',
     body: formData
   })
@@ -86,18 +86,3 @@ function closeModal(modalId) {
   document.getElementById(modalId).style.display = 'none';
 }
 
-// 画面外をクリックしたら閉じる
-// document.addEventListener('click', function (event) {
-//   const editModal = document.getElementById('editModal');
-//   const deleteModal = document.getElementById('deleteModal');
-
-//   // 編集モーダルを閉じる処理
-//   if (editModal.style.display === 'flex' && !editModal.querySelector('.edit-modal-content').contains(event.target)) {
-//     editModal.style.display = 'none';
-//   }
-
-//   // 削除モーダルを閉じる処理
-//   if (deleteModal.style.display === 'flex' && !deleteModal.querySelector('.delete-modal-content').contains(event.target)) {
-//     deleteModal.style.display = 'none';
-//   }
-// });
