@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         // 最新の動画リストを取得して返す
-        $stmt = $pdo->prepare("SELECT id, title, url FROM videos ORDER BY id DESC");
+        $stmt = $pdo->prepare("SELECT id, title, url, category FROM videos ORDER BY id DESC");
         $stmt->execute();
         $videos = $stmt->fetchAll(PDO::FETCH_ASSOC); // 連想配列として取得
 

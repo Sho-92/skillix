@@ -1,15 +1,22 @@
+.header {
+  display: none;
+}
+
 /* メインコンテナを画面中央に配置 */
 .main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f7fc; /* 背景色 */
+  background-color: #f4f7fc; 
+  margin: 0px;
 }
 
 h1 {
   font-size: 3rem;
 }
+
 /* ログインフォームのスタイル */
 .login-form {
   display: flex;
@@ -18,6 +25,7 @@ h1 {
   align-items: center;
   background-color: #ffffff; /* 背景色 */
   padding: 40px;
+  margin-top: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ボックスシャドウ */
   width: 100%;

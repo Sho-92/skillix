@@ -25,8 +25,9 @@ function updateVideoList(videos) {
   videos.forEach(video => {
     const listItem = document.createElement('li');
     listItem.innerHTML = `
-      <strong>${video.title}</strong><br>
-      <iframe width="300" height="170" src="${video.url}" frameborder="0" allowfullscreen></iframe><br>
+      <div class="video-item">
+      <strong class="video-title">${video.title}</strong><br>
+      <iframe class="video-iframe" src="${video.url}" frameborder="0" allowfullscreen></iframe><br>
       `;
     staffVideoList.appendChild(listItem);
   });
@@ -34,3 +35,4 @@ function updateVideoList(videos) {
 
 console.log("現在のURL:", window.location.href);
 console.log("リクエスト先:", '../actions/get_video.php');
+

@@ -13,16 +13,16 @@
   </head>
 
   <main class="main">
+    <h1>Synclyee</h1>
     <section class="login-form">
-      <h1>Synclyee</h1>
       <form method="post" action="auth/login.php">
-          <label for="employee_id">Employee ID:</label>
+          <label for="employee_id">従業員ID</label>
           <input type="text" name="employee_id" id="employee_id" placeholder="Employee ID" required>
 
-          <label for="password">Password:</label>
+          <label for="password">パスワード</label>
           <input type="password" name="password" id="password" placeholder="Password" required>
 
-          <button type="submit" name="login">Login</button>
+          <button type="submit" name="login">ログイン</button>
       </form>
     </section>
   </main>

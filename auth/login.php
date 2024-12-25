@@ -23,7 +23,7 @@ if (isset($_POST['login'])) {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // ユーザーが見つかるか確認
-    if ($user &&  $password === $user['password']) { // 単純な文字列比較/パスワードは最終ハッシュ化する
+    if ($user && password_verify($password, $user['password'])) { // 単純な文字列比較/パスワードは最終ハッシュ化する
         // セッションIDを再生成（セッション固定攻撃を防ぐ）
         session_regenerate_id(true);
         

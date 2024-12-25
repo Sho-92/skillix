@@ -2,8 +2,11 @@ let userIdToDelete = null; // 削除ボタンを押すたびに異なるユー�
 
 // 削除ボタン
 function deleteUser(userId) {
+  console.log('deleteUser called with userId:', userId);
+  const modal = document.getElementById('deleteModal');
+    console.log('Modal:', modal); // モーダル要素を確認
   userIdToDelete = userId;
-  document.getElementById('deleteModal').style.display = 'block';
+  document.getElementById('deleteModal').style.display = 'flex';
 }
 
 // 削除確認モーダル「Yes」操作
@@ -52,7 +55,7 @@ function editUser(userId) {
       document.getElementById('edit_employee_id').value = user.employee_id;
       document.getElementById('edit_role').value = user.role;
       // モーダルを表示
-      document.getElementById('editModal').style.display = 'block';
+      document.getElementById('editModal').style.display = 'flex';
     })
     .catch(error => {
       console.error('Error fetching user data:', error);
@@ -82,3 +85,19 @@ document.getElementById('editUserForm').addEventListener('submit', function(even
 function closeModal(modalId) {
   document.getElementById(modalId).style.display = 'none';
 }
+
+// 画面外をクリックしたら閉じる
+// document.addEventListener('click', function (event) {
+//   const editModal = document.getElementById('editModal');
+//   const deleteModal = document.getElementById('deleteModal');
+
+//   // 編集モーダルを閉じる処理
+//   if (editModal.style.display === 'flex' && !editModal.querySelector('.edit-modal-content').contains(event.target)) {
+//     editModal.style.display = 'none';
+//   }
+
+//   // 削除モーダルを閉じる処理
+//   if (deleteModal.style.display === 'flex' && !deleteModal.querySelector('.delete-modal-content').contains(event.target)) {
+//     deleteModal.style.display = 'none';
+//   }
+// });

@@ -1,29 +1,56 @@
 .staff-video-list {
-  padding: 10px;
+  padding: 15px;
   max-height: 50vh;
-  overflow-x: auto; 
-  overflow-y: hidden;
-  padding: 1rem;
-  border: 1px solid #ccc;
+  overflow: hidden;
+  border: 1px solid #ddd;
   box-sizing: border-box;
   width: 100%;
   white-space: nowrap;
+  border-radius: 10px;
+  background-color: #f8f8f8;
 }
 
 #staffVideoList {
-  display: flex;             
-  gap: 20px;                
+  display: flex;
+  justify-content: flex-start; /* 最初のアイテムが左に配置されるように */
+  gap: 25px;
+  overflow-x: auto; /* 横スクロールを有効に */
+  scroll-snap-type: x mandatory; /* スクロールを1アイテムずつスナップ */
+  scroll-behavior: smooth; /* スクロールがスムーズに */
+  width: 100%;
+  max-width: 960px; /* 3つのアイテムが表示される幅 */
+  margin: 0 auto;
 }
 
-#staffVideoList li {
-  flex-shrink: 0; 
-  width: 400px;
-  box-sizing: border-box;    
-  padding: 10px;
-  border: 1px solid #ccc;
+.video-item {
   background-color: #f9f9f9;
-  border-radius: 5px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px; /* アイテムの幅 */
+  height: 100%;
+  box-sizing: border-box;
+  scroll-snap-align: start; /* 各アイテムがスクロールの開始位置にスナップ */
 }
+
+.video-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.video-iframe {
+  width: 100%;
+  height: 170px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
 
 @media (max-width: 600px) {
 
