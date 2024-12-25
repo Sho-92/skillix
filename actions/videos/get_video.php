@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/db.php';
+require_once '../../includes/db.php';
 
 // 動画一覧を取得
 $stmt = $pdo->prepare("SELECT id, title, url, category FROM videos ORDER BY id DESC");

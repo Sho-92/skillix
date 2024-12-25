@@ -2,7 +2,7 @@
 // このファイルはユーザーを削除するための処理を行います。
 // 受け取ったユーザーIDに基づいて、指定されたユーザーをデータベースから削除します。
 
-require_once('../includes/db.php');
+require_once('../../includes/db.php');
 
 // ユーザーIDをPOSTで受け取る
 if (isset($_POST['user_id'])) {

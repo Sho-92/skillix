@@ -2,7 +2,7 @@
 window.onload = async function() {
   try {
     // PHPから動画リストを取得
-    const response = await fetch('../actions/get_video.php');
+    const response = await fetch('../actions/videos/get_video.php');
     console.log("サーバーからのレスポンス:", response);
     
     // JSON形式で動画リストをパース
@@ -34,5 +34,5 @@ function updateVideoList(videos) {
 }
 
 console.log("現在のURL:", window.location.href);
-console.log("リクエスト先:", '../actions/get_video.php');
+console.log("リクエスト先:", '../actions/videos/get_video.php');
 

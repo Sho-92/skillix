@@ -21,7 +21,7 @@ $users = $stmt->fetchAll();
   <h2>ユーザー管理</h2>
 
   <!-- 新規ユーザー追加フォーム -->
-  <form method="post" action="../actions/add_user.php">
+  <form method="post" action="../actions/users/add_user.php">
     <input type="text" name="username" placeholder="ユーザー名" required>
     <input type="text" name="employee_id" placeholder="従業員ID" required>
     <input type="password" name="password" placeholder="パスワード" required>

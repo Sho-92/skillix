@@ -1,7 +1,7 @@
 // ページロード時に初期動画リストを取得
 window.onload = async function() {
   try {
-    const response = await fetch('../actions/get_video.php');
+    const response = await fetch('../actions/videos/get_video.php');
     const videos = await response.json();
     updateVideoList(videos);
     loadCategories();
@@ -30,7 +30,7 @@ async function addVideo() {
 
   try {
     // サーバーにデータを送信
-    const response = await fetch('../actions/add_video.php', {
+    const response = await fetch('../actions/videos/add_video.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ async function deleteVideo(videoId) {
   try {
     const formData = { id: videoId }; // JSON形式でデータを送信
 
-    const response = await fetch('../actions/delete_video.php', { // `delete_video.php` を指定
+    const response = await fetch('../actions/videos/delete_video.php', { // `delete_video.php` を指定
       method: 'POST',
       body: JSON.stringify(formData), // JSONとして送信
       headers: {
@@ -150,7 +150,7 @@ async function deleteVideo(videoId) {
 
 async function loadVideoList() {
   try {
-    const response = await fetch('../actions/get_video.php');
+    const response = await fetch('../actions/videos/get_video.php');
     const videos = await response.json();
     updateVideoList(videos); // 取得した動画リストを更新
   } catch (error) {
@@ -161,7 +161,7 @@ async function loadVideoList() {
 // サーバーからカテゴリー一覧を取得
 async function loadCategories() {
   try {
-    const response = await fetch('../actions/get_categories.php'); // カテゴリー取得APIを呼び出し
+    const response = await fetch('../actions/categories/get_category.php'); // カテゴリー取得APIを呼び出し
     const categories = await response.json();
 
     // エラーチェック

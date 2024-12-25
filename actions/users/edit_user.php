@@ -2,7 +2,7 @@
 // このファイルは既存のユーザー情報を更新するための処理を行います。
 // ユーザーIDを基に、フォームから送信されたデータをデータベースに更新します。
 
-require_once('../includes/db.php');
+require_once('../../includes/db.php');
 
 // ユーザーIDと新しい情報をPOSTで受け取る
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

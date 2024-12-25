@@ -3,7 +3,7 @@
 // ユーザーIDを基に、そのユーザーの情報をデータベースから取得し、
 // JSON形式で返します。
 
-require_once('../includes/db.php');
+require_once('../../includes/db.php');
 
 // ユーザーIDを受け取る
 $user_id = $_GET['user_id'];  // URLパラメータから受け取る
