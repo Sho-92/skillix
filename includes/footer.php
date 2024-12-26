@@ -11,8 +11,8 @@
         echo '<script src="../assets/js/admin.js" defer></script>';
       } elseif ($page === 'staff') {
         echo '<script src="../assets/js/staff.js" defer></script>';
-      } elseif ($page === 'dashboard') {
-        echo '<script src="../assets/js/dashboard.js" defer></script>';
+      } elseif ($page === 'account') {
+        echo '<script src="../assets/js/account.js" defer></script>';
       }
     }
   ?>

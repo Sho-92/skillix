@@ -1,0 +1,72 @@
+.dashboard-content {
+  display: flex; 
+  gap: 20px; 
+  margin-top: 20px;
+  padding: 20px;
+  height: auto;
+}
+
+.main-content {
+  flex: 8; 
+  background-color: #fff; 
+  padding: 20px;
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.sidebar-content {
+  flex: 2; 
+  background-color: #fff; 
+  padding: 20px;
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  max-height: 50vh;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.sidebar-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* レスポンシブ対応 */
+  gap: 15px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+}
+
+.sidebar-card {
+  background-color: #ffffff;
+  padding: 5px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-card-icon {
+  font-size: 15px;
+  margin: 10px;
+}
+
+.sidebar-card-text {
+  font-size: 15px;
+  color: #555;
+  font-weight: 500;
+}
+
+.dashboard-card:hover .sidebar-card-text {
+  color: #007bff;
+}

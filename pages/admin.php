@@ -6,6 +6,7 @@ require_once '../includes/functions.php'; // functions.php をインクルード
 checkAccess('admin'); // 本社のみアクセス許可
 
 $page = 'admin'; // ページ名設定
+$pageHasSidebar = true; // サイドバーが必要なページ
 
 require_once '../includes/db.php'; // DB接続ファイルを読み込み
 // 動画追加処理
@@ -30,7 +31,7 @@ $videos = $stmt->fetchAll();
 <?php include '../includes/header.php'; ?>
 
 <main class="main">
-  <h2>本社用：動画リンク管理ツール</h2>
+  <h2>本社用：ダッシュボード/動画リンク管理ツール</h2>
   <div class="input-content">
     <section class="input-video">
       <input type="text" id="videoTitle" class="video-title" placeholder="タイトルを入力">
@@ -47,38 +48,11 @@ $videos = $stmt->fetchAll();
     </section>
   </div>
 
-  <div class="main-content">
-    <div class="side-content">
-      <h2 class="dashboard-title">メインメニュー</h2>
-      <div class="dashboard-links">
-        <a href="dashboard.php" class="dashboard-link">
-          <div class="dashboard-card">
-            <div class="card-icon">👤</div>
-            <div class="card-text">ダッシュボード</div>
-          </div>
-        </a>
-        <a href="staff.php" class="dashboard-link">
-          <div class="dashboard-card">
-            <div class="card-icon">👀</div>
-            <div class="card-text">スタッフ画面表示</div>
-          </div>
-        </a>
-        <a href="admin.php" class="dashboard-link">
-          <div class="dashboard-card">
-            <div class="card-icon">👀</div>
-            <div class="card-text">トップページ</div>
-          </div>
-        </a>
-        <a href="staff.php" class="dashboard-link">
-          <div class="dashboard-card">
-            <div class="card-icon">👀</div>
-            <div class="card-text">動画管理</div>
-          </div>
-        </a>
-      </div>
-    </div>
+  <div class="dashboard-content">
 
-    <div class="video-content">
+    <?php include '../pages/sidebar.php'; ?>
+    
+    <div class="main-content">
       <h2>登録済み動画一覧</h2>
       <section class="admin-video-list">
         <ul id="adminVideoList">

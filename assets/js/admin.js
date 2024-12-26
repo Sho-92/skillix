@@ -65,6 +65,14 @@ function updateVideoList(videos) {
   const adminList = document.getElementById('adminVideoList');
   adminList.innerHTML = ''; // リストをクリア
 
+  // 動画が登録されていない場合のメッセージを表示
+  if (videos.length === 0) {
+    const noVideosMessage = document.createElement('p');
+    noVideosMessage.textContent = '登録されている動画はありません。';
+    adminList.appendChild(noVideosMessage);
+    return; // これ以上処理を続けない
+  }
+
   // カテゴリーごとに動画をグループ化
   const categorizedVideos = videos.reduce((groups, video) => {
     const category = video.category || '未分類'; // カテゴリーがない場合は "未分類"
@@ -83,7 +91,7 @@ function updateVideoList(videos) {
 
     // カテゴリーのタイトルを追加
     const categoryTitle = document.createElement('h3');
-    categoryTitle.textContent = `『${category}』`;
+    categoryTitle.textContent = category;
     categorySection.appendChild(categoryTitle);
 
     // カテゴリー内の動画リストを追加

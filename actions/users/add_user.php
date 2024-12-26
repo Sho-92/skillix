@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
     $stmt->bindParam(':role', $role);
 
     if ($stmt->execute()) {
-        header('Location: ../../pages/dashboard.php'); // 成功したらダッシュボードにリダイレクト
+        header('Location: ../../pages/account.php'); // 成功したらダッシュボードにリダイレクト
         exit;
     } else {
         echo "Error occurred!";
