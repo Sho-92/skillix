@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $title = $data['title'] ?? '';
     $url = $data['url'] ?? '';
-    $selectedCategory = $data['selectedCategory'] ?? '';
+    $selectedCategory = $data['category'] ?? ''; // categoryに合わせる
     $newCategory = $data['newCategory'] ?? '';
 
     // 必須チェック
@@ -20,7 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $videoId = preg_replace('/.*(?:\/|v=)([a-zA-Z0-9_-]+).*$/', '$1', $url);
     $embedUrl = "https://www.youtube.com/embed/$videoId";
     // 使用するカテゴリーを決定
-    $category = $newCategory ?: $selectedCategory;
+    $category = $newCategory ?: $selectedCategory; // 新規カテゴリーが優先される
+
+    // カテゴリーが指定されていない場合のデフォルト処理（未分類）
+    if (empty($category)) {
+        $category = '未分類';
+    }
 
     try {
         // 動画をデータベースに挿入

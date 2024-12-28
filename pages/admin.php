@@ -31,28 +31,28 @@ $videos = $stmt->fetchAll();
 <?php include '../includes/header.php'; ?>
 
 <main class="main">
-  <h2>本社用：ダッシュボード/動画リンク管理ツール</h2>
-  <div class="input-content">
-    <section class="input-video">
-      <input type="text" id="videoTitle" class="video-title" placeholder="タイトルを入力">
-      <input type="text" id="videoUrl" class="video-url" placeholder="YouTube URL">
-      <div class="category-input">
-        <label for="categorySelect">カテゴリーを選択または追加:</label>
-        <select id="categorySelect" class="category-select">
-          <option value="">-- カテゴリーを選択 --</option>
-          <!-- 既存のカテゴリーがここに動的に追加される -->
-        </select>
-        <input type="text" id="newCategory" class="new-category" placeholder="新しいカテゴリーを追加">
-      </div>
-      <button onclick="addVideo()">追加</button>
-    </section>
-  </div>
-
   <div class="dashboard-content">
 
     <?php include '../pages/sidebar.php'; ?>
     
     <div class="main-content">
+      <h2>動画登録フォーム</h2>
+      <form id="videoForm">
+        <section class="input-video">
+          <input type="text" id="videoTitle" name="title" class="video-title" placeholder="タイトルを入力" required>
+          <input type="text" id="videoUrl" name="url" class="video-url" placeholder="YouTube URL" required>
+          <div class="category-input">
+            <label for="categorySelect">カテゴリーを選択または追加:</label>
+            <select id="categorySelect" name="category" class="category-select">
+              <option value="">-- カテゴリーを選択 --</option>
+              <!-- 動的に追加される既存のカテゴリー -->
+            </select>
+            <input type="text" id="newCategory" name="new_category" class="new-category" placeholder="新しいカテゴリーを追加">
+          </div>
+          <button type="submit" name="add_video">追加</button>
+        </section>
+      </form>
+
       <h2>登録済み動画一覧</h2>
       <section class="admin-video-list">
         <ul id="adminVideoList">

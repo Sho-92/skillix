@@ -5,21 +5,21 @@
 
 require_once('../../includes/db.php');
 
-// ユーザーIDを受け取る
-$user_id = $_GET['user_id'];  // URLパラメータから受け取る
-
-// SQLクエリでユーザー情報を取得
-$sql = "SELECT * FROM users WHERE id = :user_id";
+// SQLクエリで全ユーザー情報を取得
+$sql = "SELECT id, username, employee_id, password, role FROM users";
 $stmt = $pdo->prepare($sql);
-$stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
 
-// 結果を返す
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+// 結果を取得
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if ($user) {
-    echo json_encode($user);  // JSON形式でユーザー情報を返す
+// ユーザー情報があればJSON形式で返す
+if ($users) {
+    foreach ($users as &$user) {
+        $user['password'] = '******'; // パスワードを隠す
+    }
+    echo json_encode($users);  // JSON形式でユーザー情報を返す
 } else {
-    echo json_encode(["error" => "User not found"]);
+    echo json_encode(["error" => "ユーザーが見つかりませんでした"]);
 }
 ?>

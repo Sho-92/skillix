@@ -24,23 +24,15 @@
 
 <main class="main">
   <h2>スタッフ用：動画視聴セクション</h2>
-  <h2>最新動画一覧</h2>
-  <section class="staff-video-list">
-    <ul id="staffVideoList">
-      <!-- JavaScriptでリストを動的に追加 -->
-    </ul>
+  <!-- 最新動画セクション -->
+  <section class="video-section">
+    <h2>最新動画</h2>
+    <ul id="latestVideoList" class="video-list"></ul>
   </section>
-  <section class="staff-video-list">
-    <h2>問診動画リスト</h2>
-    <ul id="staffVideoList">
-      <!-- JavaScriptでリストを動的に追加 -->
-    </ul>
-  </section>
-  <section class="staff-video-list">
-    <h2>施術動画リスト</h2>
-    <ul id="staffVideoList">
-      <!-- JavaScriptでリストを動的に追加 -->
-    </ul>
+
+  <!-- カテゴリー別セクション -->
+  <section id="categorySections">
+    <!-- JavaScriptでカテゴリーごとのセクションを生成 -->
   </section>
 </main>
 

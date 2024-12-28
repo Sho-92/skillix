@@ -11,10 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['error' => 'JSONデコードエラー']);
         exit;
     }    
-
-    // データの内容を確認（デバッグ用）
-    // var_dump($data); // 本番環境では不要
-
     // IDが指定されていない場合のエラーハンドリング
     $videoId = $data['id'] ?? null;
     if (!$videoId) {
@@ -28,17 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':id', $videoId, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
-        // 最新の動画リストを取得して返す
-        $stmt = $pdo->prepare("SELECT id, title, url, category FROM videos ORDER BY id DESC");
-        $stmt->execute();
-        $videos = $stmt->fetchAll(PDO::FETCH_ASSOC); // 連想配列として取得
-
-        // 動画リストが存在しない場合のチェック
-        if (empty($videos)) {
-            echo json_encode(['message' => '動画がありません。']);
-        } else {
-            echo json_encode($videos); // JSON形式で返す
-        }
+        // 削除成功時は成功フラグを返す
+        echo json_encode(['success' => true]);
     } else {
         http_response_code(500); // Internal Server Error
         echo json_encode(['error' => 'データベースから削除できませんでした。']);

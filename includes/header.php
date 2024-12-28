@@ -14,6 +14,10 @@
         echo '<link rel="stylesheet" href="../assets/css/staff.css">';
       } elseif ($page === 'account') {
         echo '<link rel="stylesheet" href="../assets/css/account.css">';
+      } elseif ($page === 'videos-admin') {
+        echo '<link rel="stylesheet" href="../assets/css/videos-admin.css">';
+      }elseif ($page === 'staff-view') {
+        echo '<link rel="stylesheet" href="../assets/css/staff-view.css">';
       }
     }
   ?>

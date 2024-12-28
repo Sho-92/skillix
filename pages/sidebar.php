@@ -1,9 +1,9 @@
 <?php
 $menuItems = [
   ["url" => "admin.php", "icon" => "🏠", "text" => "トップページ"],
-  ["url" => "account.php", "icon" => "👤", "text" => "アカウント管理"],
-  ["url" => "video_management.php", "icon" => "🎥", "text" => "動画管理"],
-  ["url" => "staff.php", "icon" => "👀", "text" => "スタッフ画面表示"],
+  ["url" => "account.php", "icon" => "👤", "text" => "ユーザー管理"],
+  ["url" => "videos-admin.php", "icon" => "🎥", "text" => "動画管理"],
+  ["url" => "staff-view.php", "icon" => "👀", "text" => "スタッフ画面表示"],
 ];
 ?>
 
