@@ -4,7 +4,7 @@ require_once '../../includes/db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         // カテゴリー一覧を取得
-        $stmt = $pdo->prepare("SELECT DISTINCT category FROM videos WHERE category IS NOT NULL ORDER BY category ASC");
+        $stmt = $pdo->prepare("SELECT id, name FROM categories ORDER BY name ASC");
         $stmt->execute();
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

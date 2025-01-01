@@ -1,6 +1,4 @@
 <?php
-// このファイルはユーザーを削除するための処理を行います。
-// 受け取ったユーザーIDに基づいて、指定されたユーザーをデータベースから削除します。
 
 require_once('../../includes/db.php');
 
@@ -22,7 +20,7 @@ if (isset($inputData['user_id'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':user_id', $user_id);
 
-    // 実行して成功した場合
+    // SQL実行
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "User deleted successfully!"]);
     } else {

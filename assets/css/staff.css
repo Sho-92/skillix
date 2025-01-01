@@ -1,4 +1,3 @@
-/* セクション全体のスタイル */
 .video-section {
   padding: 15px;
   max-height: 50vh;
@@ -25,20 +24,18 @@
   padding-bottom: 10px; /* スクロール時の余白 */
 }
 
-/* 各動画アイテム */
 .video-item {
   background-color: #f9f9f9;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 300px; /* 動画アイテムの幅 */
+  width: 300px; 
   flex-shrink: 0; /* 横スクロール用にサイズ固定 */
   height: auto;
   box-sizing: border-box;
   scroll-snap-align: start;
 }
 
-/* 動画タイトル */
 .video-title {
   font-size: 18px;
   font-weight: bold;
@@ -47,7 +44,6 @@
   margin-bottom: 10px;
 }
 
-/* 動画の埋め込み */
 .video-iframe {
   width: 100%;
   height: 170px;

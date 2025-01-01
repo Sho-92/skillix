@@ -1,34 +1,51 @@
 <?php
 require_once '../../includes/db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // JSONデータを取得
+try {
+    // JSONデータを受け取る
     $data = json_decode(file_get_contents('php://input'), true);
 
-    // JSONデコードのエラーチェック
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        echo json_encode(['error' => 'JSONデコードエラー']);
-        exit;
-    }    
-    // IDが指定されていない場合のエラーハンドリング
-    $videoId = $data['id'] ?? null;
-    if (!$videoId) {
-        http_response_code(400); // Bad Request
-        echo json_encode(['error' => '動画IDが指定されていません。']);
-        exit;
+    if (!isset($data['video_id'])) {
+        throw new Exception('動画IDが指定されていません。');
     }
 
-    // データベースから削除
+    $videoId = $data['video_id']; // 削除する動画のID
+
+    // 動画が存在するか確認
+    $stmt = $pdo->prepare("SELECT id, category_id FROM videos WHERE id = :id LIMIT 1");
+    $stmt->bindParam(':id', $videoId);
+    $stmt->execute();
+    $video = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$video) {
+        throw new Exception('指定された動画が見つかりません。');
+    }
+
+    // 動画が属していたカテゴリーIDを取得
+    $categoryId = $video['category_id'];
+
+    // 動画を削除
     $stmt = $pdo->prepare("DELETE FROM videos WHERE id = :id");
-    $stmt->bindParam(':id', $videoId, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $videoId);
+    $stmt->execute();
 
-    if ($stmt->execute()) {
-        // 削除成功時は成功フラグを返す
-        echo json_encode(['success' => true]);
-    } else {
-        http_response_code(500); // Internal Server Error
-        echo json_encode(['error' => 'データベースから削除できませんでした。']);
+    // カテゴリー内の動画が他にない場合、カテゴリーも削除
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM videos WHERE category_id = :category_id");
+    $stmt->bindParam(':category_id', $categoryId);
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+
+    // 他に動画がない場合、そのカテゴリーを削除
+    if ($count == 0) {
+        $stmt = $pdo->prepare("DELETE FROM categories WHERE id = :id");
+        $stmt->bindParam(':id', $categoryId);
+        $stmt->execute();
     }
+
+    echo json_encode(['success' => true]);
+
+} catch (Exception $e) {
+    // エラー時にはJSON形式でエラーメッセージを返す
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
 ?>

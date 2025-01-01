@@ -1,4 +1,4 @@
-import { fetchVideoApi } from './videoApi.js';
+import { fetchVideoApi, getSortedVideoApi } from './videoApi.js';
 
 // ページロード時にデータを取得
 // ページロード時にデータを取得
@@ -17,12 +17,14 @@ window.onload = async function() {
     // カテゴリー別に分類して表示
     const categorizedVideos = categorizeVideos(videos);
     updateCategoryVideos(categorizedVideos);
+
+    getSortedVideos();
   } catch (error) {
     console.error('エラーが発生しました:', error);
   }
 };
 
-// 動画リストをHTMLに更新する関数
+// 最新動画リストを作成する
 function updateLatestVideos(videos) {
   const latestVideoList = document.getElementById('latestVideoList');
   latestVideoList.innerHTML = '';
@@ -87,4 +89,16 @@ function updateCategoryVideos(categorizedVideos) {
 // IDを安全な形式に変換する関数
 function sanitizeId(category) {
   return category.replace(/\s+/g, '_').replace(/[^\w-]/g, '');
+}
+
+// サーバーから動画データを取得して表示する
+async function getSortedVideos() {
+  try {
+    const categorizedVideos = await getSortedVideoApi();
+
+    // 動画リストを更新
+    updateCategoryVideos(categorizedVideos);
+  } catch (error) {
+    console.error('エラー:', error);
+  }
 }

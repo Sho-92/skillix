@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $stmt->bindParam(':password', $hashed_password);
       $stmt->bindParam(':role', $role);
 
+      // SQL実行
       if ($stmt->execute()) {
           echo json_encode(['success' => true, 'message' => 'User added successfully']);
       } else {

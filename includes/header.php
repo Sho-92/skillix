@@ -26,7 +26,9 @@
   <?php if ($pageHasSidebar): ?>
     <link rel="stylesheet" href="../assets/css/sidebar.css">
   <?php endif; ?>
-  
+  <!-- Sortable.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+
 </head>
 <body>
   <header class="header">

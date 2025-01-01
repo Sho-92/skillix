@@ -40,7 +40,6 @@ input {
   background-color: #fff;
 }
 
-/* カテゴリータイトル */
 .category-section h3 {
   background-color: #2a87d5; 
   color: #fff;  
@@ -70,14 +69,12 @@ input {
   border-radius: 5px;
 }
 
-/* タイトル部分 */
 #adminVideoList li strong {
   font-weight: bold;
   margin-right: 10px;
   flex-grow: 1; /* 残りのスペースを埋める */
 }
 
-/* URL（テキストボックス） */
 .video-url {
   width: 350px;
   padding: 5px;
@@ -88,7 +85,6 @@ input {
   flex-shrink: 0; /* URLが縮まないように */
 }
 
-/* 削除ボタン */
 .delete-btn {
   padding: 5px 10px;
   background-color: #f44336;

@@ -6,14 +6,18 @@ try {
     if (isset($_GET['id'])) {
         $videoId = $_GET['id'];
 
-        // 特定の動画を取得するSQL
-        $stmt = $pdo->prepare("SELECT id, title, url, category FROM videos WHERE id = :id");
+        // 動画とカテゴリー情報を取得するSQL
+        $stmt = $pdo->prepare("SELECT v.id, v.title, v.url, COALESCE(c.name, '未分類') AS category
+                               FROM videos v
+                               LEFT JOIN categories c ON v.category_id = c.id
+                               WHERE v.id = :id");
         $stmt->bindParam(':id', $videoId, PDO::PARAM_INT);
         $stmt->execute();
 
         $video = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($video) {
+            // JSONとして返す
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($video, JSON_UNESCAPED_UNICODE);
         } else {
@@ -31,4 +35,3 @@ try {
     http_response_code(500); // Internal Server Error
     echo json_encode(['error' => 'エラー: ' . $e->getMessage()]);
 }
-?>

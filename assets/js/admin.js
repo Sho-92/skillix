@@ -1,5 +1,5 @@
 import { fetchVideoApi, addVideoApi } from './videoApi.js';
-import { fetchCategoryApi } from './categoryApi.js';
+import { fetchCategoryApi, addCategoryApi } from './categoryApi.js';
 
 // ページロード時に初期動画リストを取得
 window.onload = async function() {
@@ -34,16 +34,31 @@ document.getElementById('videoForm').addEventListener('submit', async function (
     return;
   }
 
+  // カテゴリーIDを取得
+  let categoryId = null;
+
+  if (selectedCategory) {
+    categoryId = selectedCategory; // 選ばれたカテゴリーIDを使用
+  } else if (newCategory) {
+    // 新しいカテゴリーを追加する処理
+    const categoryResponse = await addCategoryApi(newCategory);
+    console.log('New Category Response:', categoryResponse);
+    categoryId = parseInt(categoryResponse.id, 10); /// idを数値に変換
+  }
+
   // 新しい動画のデータ
   const videoData = {
     title,
     url,
-    category: selectedCategory || newCategory,
+    category_id: parseInt(categoryId, 10), // category_id を送信
   };
+  console.log('Video Data:', videoData); // 送信するデータを確認
 
   try {
     // 動画の追加処理
     const videos = await addVideoApi(videoData);
+    console.log(videos); // ここで videos の中身を確認
+
     updateVideoList(videos);
 
     // フォームをリセット
@@ -59,6 +74,11 @@ document.getElementById('videoForm').addEventListener('submit', async function (
 
 // 動画リストの更新
 function updateVideoList(videos) {
+  if (!Array.isArray(videos)) {
+    console.error('videos is not an array:', videos);
+    return;
+  }
+
   const adminList = document.getElementById('adminVideoList');
   adminList.innerHTML = ''; // リストをクリア
 
@@ -117,35 +137,39 @@ async function loadVideoList() {
   }
 }
 
-// サーバーからカテゴリー一覧を取得
+// カテゴリー一覧をロードしてセレクトボックスに反映する関数
 async function loadCategories() {
   try {
     const categories = await fetchCategoryApi();
-          
-    // カテゴリーが空なら何も表示せず、エラー表示をしない
-    if (categories.length === 0) {
+    console.log("Fetched categories:", categories);
+
+    // カテゴリーが空の場合の処理
+    if (!categories || categories.length === 0) {
+      console.warn("No categories found.");
       return;
     }
 
-    // エラーチェック
-    if (categories && categories.length > 0) {
-      const categorySelect = document.getElementById('categorySelect');
-      // 最初にデフォルトの空オプションを設定
-      categorySelect.innerHTML = '<option value="">-- カテゴリーを選択 --</option>';
-
-      // 取得したカテゴリーを <option> として追加
-      categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.category;
-        option.textContent = category.category;
-        categorySelect.appendChild(option);
-      });
-    } else {
-      alert("カテゴリーの取得に失敗しました。");
+    // セレクトボックスを取得
+    const categorySelect = document.getElementById('categorySelect');
+    if (!categorySelect) {
+      console.error("Category select element not found.");
+      return;
     }
+
+    // デフォルトオプションを初期化
+    categorySelect.innerHTML = '<option value="">-- カテゴリーを選択 --</option>';
+
+    // カテゴリーをループしてオプションに追加
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category.id; // カテゴリーIDをvalueに設定
+      option.textContent = category.name; // カテゴリー名を表示
+      categorySelect.appendChild(option);
+    });
+
+    console.log("Category select updated successfully.");
   } catch (error) {
     console.error('エラーが発生しました:', error);
     alert("カテゴリーの取得中にエラーが発生しました。");
   }
 }
-
