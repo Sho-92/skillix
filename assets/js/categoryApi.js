@@ -47,6 +47,8 @@ export async function addCategoryApi(newCategory) {
 
 export async function updateCategoryOrderApi(newCategoryOrder) {
   try {
+    console.log('送信するデータ:', newCategoryOrder);
+    
     const response = await fetch('../actions/categories/update_category_order.php', {
       method: 'POST',
       headers: {
@@ -77,12 +79,21 @@ export async function updateCategoryOrderApi(newCategoryOrder) {
 
 //カテゴリーをポジション順にソート
 export async function getSortedCategoryApi() {
-    try {
-      const response = await fetch('../actions/categories/get_sorted_categories.php');
-      const data = await response.json();
-      // console.log('サーバーから取得した動画データby sort:', data); // データを確認
-      return data;
-    } catch (error) {
-      console.error('API呼び出しエラー:', error);
+  try {
+    const response = await fetch('../actions/categories/get_sorted_categories.php');
+    console.log('レスポンス全体:', response);
+
+    if (!response.ok) {
+      const errorText = await response.text(); // レスポンス本文を取得
+      console.error('APIエラー:', response.status, response.statusText, errorText);
+      return null;
+    }
+
+    const data = await response.json();
+    console.log('サーバーから取得したカテゴリーデータby sort:', data); // データを確認
+    return data;
+  } catch (error) {
+    console.error('API呼び出しエラー:', error);
+    return null;
   }
 }

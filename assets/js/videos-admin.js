@@ -6,50 +6,62 @@ import { fetchCategoryApi, addCategoryApi, updateCategoryOrderApi, getSortedCate
 window.onload = async function() {
   try {
     const videos = await fetchVideoApi();
-    console.log('取得した動画データ:', videos);
+    // console.log('取得した動画データ:', videos);
     updateVideoList(videos);
   } catch (error) {
     console.error('エラーが発生しました:', error);
   }
 };
 
+// videos を category_id ベースでグループ化
+function groupVideosByCategoryId(videos) {
+  const groupedVideos = {};
+
+  // カテゴリー名をキーとしているオブジェクトをループ
+  Object.entries(videos).forEach(([categoryName, videoList]) => {
+    videoList.forEach(video => {
+      const categoryId = video.category_id; // category_id を取得
+      if (!groupedVideos[categoryId]) {
+        groupedVideos[categoryId] = []; // 初期化
+      }
+      groupedVideos[categoryId].push(video); // category_id ごとに追加
+    });
+  });
+
+  return groupedVideos;
+}
+
+
 async function updateVideoList() {
   try {
+    const categories = await getSortedCategoryApi(); 
+    console.log('取得したカテゴリー順:', categories);
     const videos = await getSortedVideoApi(); // サーバーからソート済みの動画リストを取得
-    // console.log('サーバーから取得したデータ:', videos);
+    console.log('取得した動画データ:', videos);
+
+    // カテゴリーIDでグループ化
+    const groupedVideos = groupVideosByCategoryId(videos);
+
     const adminList = document.getElementById('adminVideoList');
     adminList.innerHTML = ''; // リストをクリア
-    // console.log('adminList:', adminList);
-
-    // サーバーから取得したデータはすでにカテゴリーでグループ化されている
-    Object.entries(videos).forEach(([category, videoList]) => {
-      // console.log("カテゴリー名:", category);
-      // console.log("動画リスト:", videoList);
-
-      // 動画リストが配列であることを確認
-      if (!Array.isArray(videoList)) {
-        console.error(`カテゴリー "${category}" のデータが無効です。`);
-        return;
-      }
-
-      if (!videoList.length) {
-        console.error(`カテゴリー "${category}" に動画が存在しません。`);
-        return;
-      }
+    
+    // カテゴリー順にループ
+    categories.forEach(category => {
+      const { id: categoryId, name: categoryName } = category;
 
       const categorySection = document.createElement('div');
       categorySection.classList.add('category-section');
-    
-      // 動画リストの最初の動画から categoryId を取得
-      const categoryId = videoList[0].category_id || 0; // 安全にデフォルト値を設定
-      // console.log(`カテゴリーID: ${categoryId}`);
       categorySection.dataset.categoryId = categoryId;
 
       const categoryTitle = document.createElement('h3');
-      categoryTitle.textContent = category;
+      categoryTitle.textContent = categoryName; // カテゴリー名を設定
       categorySection.appendChild(categoryTitle);
-    
+
       const categoryList = document.createElement('ul');
+
+      // 該当カテゴリーIDの動画リストを取得
+      const videoList = groupedVideos[categoryId] || []; // 該当しない場合は空配列
+
       videoList.forEach(video => {
         const listItem = document.createElement('li');
         listItem.dataset.id = video.id;
@@ -61,14 +73,16 @@ async function updateVideoList() {
         `;
         categoryList.appendChild(listItem);
       });
+
       categorySection.appendChild(categoryList);
       adminList.appendChild(categorySection);
-  
-    
+
+        
       // Sortable.jsを各カテゴリーリストに適用
       new Sortable(categoryList, {
-        group: { name: 'videos', put: false }, // 他のリストにはドロップ不可
+        group: { name: 'videos' }, // 他のリストにはドロップ不可
         animation: 150,
+        draggable: 'li',
         onEnd: function () {
           console.log('onEnd イベントが発火しました');
 
@@ -79,34 +93,50 @@ async function updateVideoList() {
             console.error('新しい順序が取得できませんでした');
             return;
           }
-
           // サーバーに新しい順序を送信
-          updateVideoOrder(category, newOrder);
+          updateVideoOrder(categoryId, newOrder);
         }
       });
     });
 
     // カテゴリー全体のSortableを適用
     new Sortable(adminList, {
-      group: { name: 'categories', put: true }, // カテゴリーを移動可能に
+      group: { name: 'categories', put: true },
       animation: 150,
-      draggable: '.category-section', // ドラッグ可能なエレメントを明示
-      handle: 'h3', // h3タグをドラッグハンドルに指定
+      draggable: '.category-section',
+      dataIdAttr: 'data-category-id',
+      onStart: function () {
+        console.log('onStart イベントが発火しました');
+        const initialOrder = [...adminList.children].map(child => child.dataset.categoryId);
+        console.log('開始時の順番:', initialOrder);
+      },
       onEnd: function () {
         console.log('onEnd イベントが発火しました');
-        const updatedOrder= [...adminList.children].map(section => section.dataset.categoryId);
-        const newCategoryOrder = updatedOrder.map((categoryId, index) => ({
-          categoryId: categoryId,
-          position: index + 1 // ここで+1して1から始めるように調整
-        }));
-        console.log('カテゴリーの新しい順序:', newCategoryOrder);
+        // adminList の子要素を取得
+        const updatedOrder = [...adminList.children];
 
-        console.log('updateCategoryOrderを呼び出しました');
+        // 各要素の data-category-id を取得
+        const newCategoryOrder = updatedOrder.map((child, index) => {
+          return {
+            categoryId: child.dataset.categoryId, // カテゴリーID
+            position: index + 1 // インデックスをpositionとして設定（1始まり）
+          };
+        });
+
+        // 順番を表示
+        console.log('新しい順番:', newCategoryOrder);
+
+        // 順番が取得できなかった場合
+        if (newCategoryOrder.length === 0) {
+          console.error('新しい順番が取得できませんでした');
+          return;
+        }
+
         // サーバーに新しいカテゴリー順序を送信
         updateCategoryOrder(newCategoryOrder);
-      },
+      }
     });
-
+                              
     // 削除と編集ボタンにイベントリスナーを追加
     adminList.addEventListener('click', (e) => {
       if (e.target.classList.contains('edit-btn')) {
@@ -131,6 +161,8 @@ async function updateCategoryOrder(newCategoryOrder) {
     console.log('送信データ:', newCategoryOrder);
     const result = await updateCategoryOrderApi(newCategoryOrder); 
         
+    console.log('サーバーからのレスポンス:', result);
+
     if (result?.success) {
       console.log('カテゴリー順序が正常に更新されました');
       updateVideoList(); // リストを再描画する関数
@@ -167,6 +199,7 @@ async function updateVideoOrder(category, order) {
   }
 }
   
+
 
 // 編集ボタン
 async function editVideo(videoId) {

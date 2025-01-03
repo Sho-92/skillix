@@ -3,33 +3,59 @@
 require_once '../../includes/db.php'; // データベース接続
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
 
-    // 必要なパラメータが存在するか確認
-    if (!isset($data['order']) || !isset($data['category'])) {
-        http_response_code(400); // Bad Request
-        echo json_encode(['success' => false, 'error' => '無効なデータ形式です。']);
+    error_log("受信データ: " . print_r($data, true));
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        error_log("JSONデコードエラー: " . json_last_error_msg());
+        echo json_encode(['success' => false, 'error' => '無効なJSONデータ']);
         exit;
     }
 
-    $order = $data['order'];
-    $categoryName = $data['category']; // 文字列として取得
+    // category_id フィールドの検証
+    $categoryId = 0; // カテゴリーIDの初期値
+    if (isset($data['category'])) {
+        if (is_array($data['category']) && isset($data['category']['id'])) {
+            // categoryが配列の場合、idを使う
+            $categoryId = (int)$data['category']['id'];
+        } elseif (is_numeric($data['category'])) {
+            // categoryが数値（category_id）の場合
+            $categoryId = (int)$data['category'];
+        } elseif (is_string($data['category'])) {
+            // categoryが文字列（カテゴリー名）の場合
+            $categoryName = (string)$data['category'];
+
+            // カテゴリー名からIDを取得
+            $stmt = $pdo->prepare("SELECT id FROM categories WHERE name = :name");
+            $stmt->bindParam(':name', $categoryName, PDO::PARAM_STR);
+            $stmt->execute();
+            $category = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$category) {
+                error_log("Category not found: {$categoryName}");
+                echo json_encode(['success' => false, 'error' => '指定されたカテゴリーが見つかりません']);
+                exit;
+            }
+
+            $categoryId = (int)$category['id'];
+        } else {
+            error_log("categoryフィールドが不正な形式: " . print_r($data['category'], true));
+            echo json_encode(['success' => false, 'error' => 'categoryフィールドが不正な形式']);
+            exit;
+        }
+    }
+
+    // orderフィールドの検証
+    $order = $data['order'] ?? [];
+    if (!is_array($order) || count($order) === 0) {
+        error_log("orderフィールドが不正な形式または空: " . print_r($order, true));
+        echo json_encode(['success' => false, 'error' => 'orderフィールドが不正な形式または空']);
+        exit;
+    }
 
     try {
-        // カテゴリーIDを取得
-        $stmt = $pdo->prepare("SELECT id FROM categories WHERE name = :name");
-        $stmt->bindParam(':name', $categoryName, PDO::PARAM_STR);
-        $stmt->execute();
-        $category = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$category) {
-            error_log("Category not found: {$categoryName}");
-            throw new Exception("指定されたカテゴリーが見つかりません: {$categoryName}");
-        }
-
-        $categoryId = (int)$category['id'];
-        // error_log("Resolved categoryId: " . $categoryId);
-
         $pdo->beginTransaction(); // トランザクション開始
 
         $position = 1; // 順序の開始番号

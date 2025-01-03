@@ -19,6 +19,7 @@ try {
 } catch (PDOException $e) {
     // エラーハンドリング
     http_response_code(500);
+    error_log('データベースエラー: ' . $e->getMessage()); // サーバーログにエラーを記録
     echo json_encode(['error' => 'データベースエラー: ' . $e->getMessage()]);
 }
 
