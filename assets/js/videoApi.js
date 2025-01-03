@@ -89,3 +89,27 @@ export async function getSortedVideoApi() {
       console.error('API呼び出しエラー:', error);
   }
 }
+
+// 最新動画順にソート
+export async function fetchLatestVideoApi() {
+  try {
+    // 最新動画を取得するAPIエンドポイントを呼び出す
+    const response = await fetch('../actions/videos/get_latest_videos.php');
+    
+    // レスポンスが正常かをチェック
+    if (!response.ok) {
+      throw new Error('動画の取得に失敗しました');
+    }
+    
+    // JSONレスポンスを取得
+    const videos = await response.json();
+    
+    // 取得した動画データを返す
+    return videos;
+  } catch (error) {
+    console.error('エラーが発生しました:', error);
+    throw error; // エラーを再スローして、呼び出し元でハンドリングできるようにする
+  }
+}
+
+  

@@ -1,18 +1,18 @@
-import { fetchVideoApi, getSortedVideoApi } from './videoApi.js';
+import { fetchVideoApi, getSortedVideoApi, fetchLatestVideoApi } from './videoApi.js';
 
 // ページロード時にデータを取得
-// ページロード時にデータを取得
-window.onload = async function() {
+document.addEventListener('DOMContentLoaded', async function() {
   try {
     // 動画データを取得
     const videos = await fetchVideoApi();
-
+    
+    // 最新動画データを取得
+    const latestVideos = await fetchLatestVideoApi();
     const NUM_LATEST_VIDEOS = 5; // 表示する動画の数を動的に変更可能
-    // 最新動画（created_at順にソート）
-    const latestVideos = [...videos]
-      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      .slice(0, NUM_LATEST_VIDEOS);
-    updateLatestVideos(latestVideos);
+
+    // 最新動画（created_at順にソートされたデータ）
+    const latestVideosSorted = latestVideos.slice(0, NUM_LATEST_VIDEOS);
+    updateLatestVideos(latestVideosSorted);
 
     // カテゴリー別に分類して表示
     const categorizedVideos = categorizeVideos(videos);
@@ -22,14 +22,14 @@ window.onload = async function() {
   } catch (error) {
     console.error('エラーが発生しました:', error);
   }
-};
+});
 
 // 最新動画リストを作成する
-function updateLatestVideos(videos) {
+function updateLatestVideos(latestVideosSorted) {
   const latestVideoList = document.getElementById('latestVideoList');
   latestVideoList.innerHTML = '';
 
-  videos.forEach(video => {
+  latestVideosSorted.forEach(video => {
     const listItem = document.createElement('li');
     listItem.className = 'video-item';
     listItem.innerHTML = `
