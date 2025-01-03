@@ -47,10 +47,6 @@ $users = $stmt->fetchAll();
           <option value="">-- カテゴリーを選択 --</option>
           <!-- 動的にカテゴリーが追加される -->
         </select>
-        <div class="category-input">
-          <label for="newCategory">新しいカテゴリーを追加</label>
-          <input type="text" id="newCategory" placeholder="新しいカテゴリーを入力">
-        </div>
         <button type="submit">変更を保存</button>
       </form>
       <button type="button" class="modal-close-btn">閉じる</button>

@@ -277,42 +277,32 @@ async function updateVideo() {
   const videoId = document.getElementById('edit_video_id').value;
   const title = document.getElementById('edit_video_title').value;
   const url = document.getElementById('edit_video_url').value;
-
-  // 新しいカテゴリーが入力されているかどうかを確認
-  const newCategory = document.getElementById('newCategory').value.trim();
   const selectedCategory = document.getElementById('edit_video_category').value;
 
   let categoryId;
 
-  console.log("新しいカテゴリー:", newCategory); // 新しいカテゴリーが入力されているか確認
   console.log("選択されたカテゴリー:", selectedCategory); // 選択されたカテゴリーのIDを確認
 
-  // 新しいカテゴリーが入力されていれば、それをデータベースに追加
-  if (newCategory) {
-    console.log("新しいカテゴリーをAPIに送信:", newCategory); // 新しいカテゴリーのデータを確認
-    const result = await addCategoryApi(newCategory); // カテゴリーを追加するAPI呼び出し
-    console.log("カテゴリー追加の結果:", result); // APIレスポンスを確認
-
-    if (result.success) {
-      categoryId = result.category_id;  // 新しく追加されたカテゴリーIDを取得
-      console.log("新しいカテゴリーID:", categoryId); // 新しいカテゴリーIDを確認
-    } else {
-      alert('カテゴリーの追加に失敗しました');
+  // selectedCategoryが有効な値か確認
+  if (selectedCategory) {
+    categoryId = parseInt(selectedCategory, 10);
+    if (isNaN(categoryId)) {
+      console.error("無効なカテゴリーID:", selectedCategory);
+      alert('無効なカテゴリーIDです');
       return;
     }
-  } else {
-    // 既存のカテゴリーIDを使用
-    categoryId = selectedCategory;
     console.log("既存のカテゴリーID:", categoryId); // 既存のカテゴリーIDを確認
+  } else {
+    console.error("カテゴリーが選択されていません");
+    alert('カテゴリーが選択されていません');
+    return;
   }
-
-  categoryId = parseInt(categoryId, 10);
 
   const videoData = {
     video_id: videoId,
     title: title,
     url: url,
-    category_id: categoryId,  // 新しいIDまたは既存のID
+    category_id: categoryId,  // 既存のID
   };
 
   console.log("送信する動画データ:", videoData); // 送信する動画データを確認
@@ -342,17 +332,24 @@ document.getElementById('editVideoForm').addEventListener('submit', async (event
 
 // 削除ボタンをクリックしたときの処理
 async function deleteVideo(videoId) {
-  // 削除ボタンを無効化して重複クリックを防ぐ
   const deleteButton = document.querySelector(`button[data-id="${videoId}"]`);
+
+  // ボタンが既に無効化されている場合、処理を停止
+  if (deleteButton.disabled) return;
+
+  console.log(`削除対象の動画ID: ${videoId}`);  // 追加: 削除対象IDをログに出力
   deleteButton.disabled = true;
 
   try {
+    console.log('deleteVideoApi呼び出し開始');  // 追加: API呼び出し前にログ
     const result = await deleteVideoApi(videoId);
+    console.log('APIのレスポンス:', result);  // 追加: レスポンスをログに出力
 
     if (result.success) {
       alert('動画が削除されました');
       const videos = await fetchVideoApi();
-      updateVideoList(videos);  // 動画リストを再読み込み
+      console.log('Updated videos after deletion:', videos);
+      updateVideoList(videos);
     } else {
       alert('動画の削除に失敗しました');
     }
@@ -360,7 +357,7 @@ async function deleteVideo(videoId) {
     console.error('削除中にエラーが発生しました:', error);
     alert('削除中にエラーが発生しました');
   } finally {
-    // 削除ボタンを再度有効化
+    console.log('削除処理終了');
     deleteButton.disabled = false;
   }
 }
